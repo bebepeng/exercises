@@ -3,12 +3,12 @@ require 'temp_monitor'
 
 describe TempMonitor do
   before do
-    m = TempMonitor.new
-    tm.read_data("../weather_data.txt")
+    @tm = TempMonitor.new
+    @tm.read_data("../weather_data.txt")
   end
   it "reads a file into an array" do
-    expect(tm.data.length).not_to eq(0)
-    expect(tm.data.is_a? Array).to eq true
+    expect(@tm.data.length).not_to eq(0)
+    expect(@tm.data.is_a? Array).to eq true
   end
   it "finds the difference between highs and lows for one day"
   it "compares the differences of different days"
