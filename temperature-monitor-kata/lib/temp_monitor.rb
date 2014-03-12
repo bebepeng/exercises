@@ -1,9 +1,6 @@
 class TempMonitor
   attr_reader :data
-
-  def initalize
-    @data = nil
-  end
+  attr_reader :data_spread
 
   def read_data(file)
     @data = File.open("weather_data.txt").read
@@ -21,18 +18,19 @@ class TempMonitor
     end
   end
 
-  def temp_spread(day)
-    @data_spread[day]
-  end
-
   def smaller_spread(num1, num2)
     case
-      when temp_spread(num1) < temp_spread(num2)
+      when data_spread[num1] < data_spread[num2]
         num1
-      when temp_spread(num1) > temp_spread(num2)
+      when data_spread[num1] > data_spread[num2]
         num2
-      when temp_spread(num1) == temp_spread(num2)
+      when data_spread[num1] == data_spread[num2]
         "equal"
     end
+  end
+
+  def smallest_spread
+    sorted = @data_spread.sort_by {|key, value| value}
+    "The Smallest: Day #{sorted.first[0]} has a temp spread of #{sorted.first[1]}"
   end
 end
