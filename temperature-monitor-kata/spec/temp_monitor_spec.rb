@@ -3,9 +3,7 @@ require 'temp_monitor'
 
 describe TempMonitor do
   before do
-    @tm = TempMonitor.new
-    @tm.read_data("../weather_data.txt")
-    @tm.calculate_spread
+    @tm = TempMonitor.new("weather_data.txt")
   end
   it "reads a file into an array" do
     expect(@tm.data.length).not_to eq(0)

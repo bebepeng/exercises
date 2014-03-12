@@ -2,16 +2,13 @@ class TempMonitor
   attr_reader :data
   attr_reader :data_spread
 
-  def read_data(file)
-    @data = File.open("weather_data.txt").read
+  def initialize (file)
+    @data = File.open(file).read
     @data = @data.lines
     @data = @data.slice(8..-3)
     @data.map! do |day|
       day.split(" ")
     end
-  end
-
-  def calculate_spread
     @data_spread = Hash.new
     @data.each do |i|
       @data_spread[i[0].to_i] = i[1].to_i - i[2].to_i
@@ -30,7 +27,7 @@ class TempMonitor
   end
 
   def smallest_spread
-    sorted = @data_spread.sort_by {|key, value| value}
+    sorted = @data_spread.sort_by { |key, value| value }
     "The Smallest: Day #{sorted.first[0]} has a temp spread of #{sorted.first[1]}"
   end
 end
