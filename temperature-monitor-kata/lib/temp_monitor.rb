@@ -1,5 +1,6 @@
 class TempMonitor
   attr_reader :data
+
   def initalize
     @data = nil
   end
@@ -9,12 +10,29 @@ class TempMonitor
     @data = @data.lines
     @data = @data.slice(8..-3)
     @data.map! do |day|
-       day.split(" ")
+      day.split(" ")
+    end
+  end
+
+  def calculate_spread
+    @data_spread = Hash.new
+    @data.each do |i|
+      @data_spread[i[0].to_i] = i[1].to_i - i[2].to_i
     end
   end
 
   def temp_spread(day)
-    i = day - 1
-    @data[i][1].to_i - @data[i][2].to_i
+    @data_spread[day]
+  end
+
+  def smaller_spread(num1, num2)
+    case
+      when temp_spread(num1) < temp_spread(num2)
+        num1
+      when temp_spread(num1) > temp_spread(num2)
+        num2
+      when temp_spread(num1) == temp_spread(num2)
+        "equal"
+    end
   end
 end
